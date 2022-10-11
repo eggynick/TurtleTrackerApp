@@ -9,31 +9,34 @@
 # Date:   Fall 2022
 #--------------------------------------------------------------
 
-#Create a variable pointing to the data file
-file_name = './data/raw/sara.txt'
+#Create a variable point to the data file
+file_name = 'data/raw/sara.txt'
 
-#Create a file object from the file
-file_object = open(file_name,'r')
+#Create a file object from the filename
+file_object = open(file=file_name,mode='r')
 
 #Read contents of file into a list
 line_list = file_object.readlines()
 
-#Close the file
+#Close the file object
 file_object.close()
 
-#Pretend we read one line of data from the file
-lineString = line_list[100]
-print(lineString)
+#Extract one data line into a variable
+for lineString in line_list:
 
-#Split the string into a list of data items
-lineData = lineString.split()
-
-#Extract items in list into variables
-record_id = lineData[0]
-obs_date = lineData[2]
-obs_lc = lineData[4]
-obs_lat = lineData[6]
-obs_lon = lineData[7]
-
-#Print the location of sara
-print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+    #Check to see if the lineString is a data line
+    if  lineString.startswith('#'or'u')==True:
+        continue
+    else:
+        #Split lineString into a list of items
+        lineData = lineString.split()
+        
+        #Assign variables to items in the lineData list
+        record_id = lineData[0]
+        obs_date = lineData[2]
+        obs_lc = lineData[4]
+        obs_lat = lineData[6]
+        obs_lon = lineData[7]
+        
+        #Print information to the user
+        print(f'Record {record_id} indicates Sara was seet and {obs_lat}N, {obs_lon}W  on {obs_date}. ')
